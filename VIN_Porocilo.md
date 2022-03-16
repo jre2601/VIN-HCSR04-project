@@ -28,26 +28,35 @@ Ultrazvok je definiran kot zvok, ki ima frekvenco višjo od 20kHz, kar je tudi z
 Začetek uporabe ultrazvoka v tehnološke namene sega v leto 1917, ko so uporabili prvo ultrazvočno tipalo za zaznavanje podmornic (imenovano tudi *sonar*). Z nadaljnim razvojem tehnologije, se pojavi uporaba ultrazvoka za namene testiranja materialov in njihovih šibkih točk (npr. varjene kovine) ter uporaba v medicinske namene [3]. Odvisno od namena in materiala, so frekvence ultrazvokov različne. Za ugotavljanje razdalje po zraku, do nekega predmeta je uporabljena frekvenca okoli 40kHz. Za medicinske namene se frekvence gibajo od 1MHz do 18MHz, saj je od frekvence odvisna prodornost zvočnih valov skozi dano tkivo.
 
 
-## Arhitektura in tehnologije
+## Arhitektura, tehnologije in delovanje
 ![](src/HCSR04_PCB_scheme.png)
-Shema vezja
+*Primer sheme vezja tipala HC-SR04*
 
 ### Oddajnik, sprejemnik
 
 ### Integrirana vezja
 
-**LM32**
+Vsa spodaj opisana integrirana vezja so iz specifičnega tipala HC-SR04 s katerim sem opravljal meritve in se od drugih realizacij tega tipala razlikujejo, vendar služijo istemu namenu.
 
-**RCWL-9300**
+**LM324**
 
-**RCWL-9200**
+Integrirano vezje LM324 je sestavljeno iz 4 ločenih operacijskih ojačevalnikov, ki se na ultrazvočnem tipalu uporabljajo kot ojačevalci prejetega signala in kot filter (*Bandpass Filter* na zgornji shemi) za neželjene frekvence, katere sprejemnik zazna poleg oddane frekvence okrog 40kHz. Bandpass filter za razliko od *low pass* filtra in *high pass* filtra, ki filtrirata le nizke ali visoke frekvence, filtrira vse frekvence, ki niso v željenem frekvenčnem razponu. V primeru tipala HC-SR04, so vse frekvence razen tistih v okolici 40kHz, za meritev nepomembne oziroma lahko tudi motnje, zato so odstranjene z *bandpass* filtrom.
 
-## Opis delovanja
-Ojačevalci LM324 in njihova uporaba
-Bandpass filter (določi sprejete frekvence)
-    http://www.learningaboutelectronics.com/Articles/Bandpass-filter-calculator.php
- delovanje le teh, pulse generator, oječevalci, rx,tx
- + moje meritve/testi
+
+<img src="src/Bandpass.png" width="400px" />
+
+*Signal bandpass filtra*
+
+**RCWL-9300 in RCWL-9200**
+
+Iz večih spletnih virov je bilo razbrati, da je integrirano vezje RCWL-9300 mikrokrmilnik, namenjen uporabi v napravah za merjenje razdalje. Sprejme vhod *TRIG* in skrbi za pravilen izhod *EHCO* (izhod ECHO je postavljen na visok nivo, dokler sprejemnik čaka na ultrazvočni signal, ki ga je oddal oddajnik), povezan pa je z vezjem RCWL-9200, ki pa je vmesnik med mikrokrmilnikom in ultrazvočnim oddajnikom. Zaradi dejstava, da podatkovne listine za omenjena mikrokrmilnika nisem najdel, komunikacija med njima pa poteka z uporabo splošnega vhodno-izhodnega pina GPIO. Na sliki zadnje strani vezja lahko vidimo oznake M1 in M2, pod njima pa 4 možnosti komunikacije, GPIO (0, 0), IIC (1, 0), 1-wire (1, 1) in UART (0, 1). Konfiguracija se določi z uporoma R2 in R3, katera na tem vezju nista prisotna, to določa GPIO povezavo.
+
+
+### Meritve dosega
+
+Meritve so izrisane na polarnem koordinatnem sistemu, med -20° in 20°, saj je to bil največji kot na katerem se tipalo še zaznavalo objekte in razdalji do 4 metre. Barva diagrama predstavlja zanesljivost meritve tipala. V rdečem območju do 0.5 metra, je tipalo pravilno izmerilo razdaljo tudi do predmetov, ki so bili izven 15° vidnega polja, ki je omejen v podatkovni listini tipala. Na spodnji shemi lahko vidimo, da kot v kateremu tipalo izvede pravilne merite, po razdalji 1.5 metra, strmo pade pod specificiranih 15°. Vse meritve do 1.5 metra so bile ponovljive, pri višjih razdaljah pa je včasih tipalo vrnilo pravilno vrednost, včasih so bile meritve popolnoma napačne. Podobne ugotovitve oziroma priporočila glede uporabe so bila opisana v spletni literaturi [4].
+
+![](src/Meritve_high_res.svg)
 
 ## Uporaba s kratkim opisom delovanja
 
@@ -110,6 +119,7 @@ https://en.wikipedia.org/wiki/Medical_ultrasound
 https://www.intorobotics.com/8-tutorials-to-solve-problems-and-improve-the-performance-of-hc-sr04/
 
 Podobne meritve kot moje
+[4]
 https://www.intorobotics.com/object-detection-hc-sr04-arduino-millis/
 
 
