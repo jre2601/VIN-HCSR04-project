@@ -1,12 +1,15 @@
-<center>
-<h1>VIN Poročilo - 1. DN - 2021/22</h1>
 
-<h2>Ultrazvočni senzorji razdalje (HC-SR04)</h2>
+<h1 align="center">VIN Poročilo - 1. DN - 2021/22</h1>
 
+<h2 align="center">Ultrazvočna tipala razdalje (HC-SR04)</h2>
+
+<p align="center">
 15.03.2022
-
+</p>
+<p align="center">
 Jan Renar  
-</center>
+</p>
+
 
 ## Grafična skica
 
@@ -14,7 +17,7 @@ Jan Renar
 ## Predstavitev naprave
 
 ### Opis in speficikacije
-HC-SR04 je preprosta različica ultrazvočnih tipal za merjenje razdalje z uporabo ultrazvočnih valov. Sestavljata ga ultrazvočni oddajnik (zvočnik) in sprejemnik (mikrofon). Ti dve komponenti sta zalotani na sprednjem delu tiskanega vezja, na zadnji strani pa so ostale potrebne komponente za delovanje tega tipala. Tipalo se napaja z 5V enosmernega toka in ima porabo 15mA [1]. V podatkovni listini [1] je specificiran tudi doseg in *vidno polje* tega tipala, merilo naj bi do 4 metre v daljavo in 15° vidno polje v vsako stran, v nadaljevanju bodo predstavljene meritve, ki nakazujejo, da so te vrednosti veljavne le za idealne razmere, katere pa je v realni uporabi skoraj nemogoče doseči.
+HC-SR04 je preprosta različica ultrazvočnih tipal za merjenje razdalje z uporabo ultrazvočnih valov. Sestavljata ga ultrazvočni oddajnik (zvočnik) in sprejemnik (mikrofon). Ti dve komponenti sta zalotani na sprednjem delu tiskanega vezja, na zadnji strani pa so ostale potrebne komponente za delovanje tega tipala. Tipalo se napaja z 5V enosmernega toka in ima porabo 15mA [1]. V podatkovni listini [1] je specificiran tudi doseg in *vidno polje* tega tipala, merilo naj bi do 4 metre v daljavo in 15° vidno polje v vsako stran, v nadaljevanju bodo predstavljene meritve, ki nakazujejo, da so te vrednosti veljavne le za idealne razmere, katere pa je v realni uporabi skoraj nemogoče doseči [4].
 
 Tipalo razdaljo izmeri tako, da po oddanem ultrazvočnem signalu, meri čas dokler sprejemnik ne zazna odboja in iz izmerjenega časa izračuna prepotovano razdaljo zvočnega valova. Ta princip uporabljajo tudi laserski merilniki razdalje, le da upoštevajo hitrost svetlobe in ne hitrost zvoka, tako kot ultrazvočna tipala. 
 
@@ -25,10 +28,11 @@ Tipalo razdaljo izmeri tako, da po oddanem ultrazvočnem signalu, meri čas dokl
 
 Ultrazvok je definiran kot zvok, ki ima frekvenco višjo od 20kHz, kar je tudi zgornja meja človeškega sluha. Zvok takih frekvenc ima valovno dolžino 1.9cm ali manj [2].
 
-Začetek uporabe ultrazvoka v tehnološke namene sega v leto 1917, ko so uporabili prvo ultrazvočno tipalo za zaznavanje podmornic (imenovano tudi *sonar*). Z nadaljnim razvojem tehnologije, se pojavi uporaba ultrazvoka za namene testiranja materialov in njihovih šibkih točk (npr. varjene kovine) ter uporaba v medicinske namene [3]. Odvisno od namena in materiala, so frekvence ultrazvokov različne. Za ugotavljanje razdalje po zraku, do nekega predmeta je uporabljena frekvenca okoli 40kHz. Za medicinske namene se frekvence gibajo od 1MHz do 18MHz, saj je od frekvence odvisna prodornost zvočnih valov skozi dano tkivo.
+Začetek uporabe ultrazvoka v tehnološke namene sega v leto 1917, ko so uporabili prvo ultrazvočno tipalo za zaznavanje podmornic (imenovano tudi *sonar*). Z nadaljnim razvojem tehnologije, se pojavi uporaba ultrazvoka za namene testiranja materialov in njihovih šibkih točk (npr. varjene kovine) ter uporaba v medicinske namene. Odvisno od namena in materiala, so frekvence ultrazvokov različne. Za ugotavljanje razdalje po zraku, do nekega predmeta je uporabljena frekvenca okoli 40kHz. Za medicinske namene se frekvence gibajo od 1MHz do 18MHz, saj je od frekvence odvisna prodornost zvočnih valov skozi dano tkivo [3].
 
 
 ## Arhitektura, tehnologije in delovanje
+
 ![](src/HCSR04_PCB_scheme.png)
 *Primer sheme vezja tipala HC-SR04*
 
@@ -40,7 +44,7 @@ Vsa spodaj opisana integrirana vezja so iz specifičnega tipala HC-SR04 s kateri
 
 **LM324**
 
-Integrirano vezje LM324 je sestavljeno iz 4 ločenih operacijskih ojačevalnikov, ki se na ultrazvočnem tipalu uporabljajo kot ojačevalci prejetega signala in kot filter (*Bandpass Filter* na zgornji shemi) za neželjene frekvence, katere sprejemnik zazna poleg oddane frekvence okrog 40kHz. Bandpass filter za razliko od *low pass* filtra in *high pass* filtra, ki filtrirata le nizke ali visoke frekvence, filtrira vse frekvence, ki niso v željenem frekvenčnem razponu. V primeru tipala HC-SR04, so vse frekvence razen tistih v okolici 40kHz, za meritev nepomembne oziroma lahko tudi motnje, zato so odstranjene z *bandpass* filtrom.
+Integrirano vezje LM324 je sestavljeno iz 4 ločenih operacijskih ojačevalnikov, ki se na ultrazvočnem tipalu uporabljajo kot ojačevalci prejetega signala in kot filter (*Bandpass Filter* na zgornji shemi) za neželjene frekvence, katere sprejemnik zazna poleg oddane frekvence okrog 40kHz. Bandpass filter za razliko od *low pass* filtra in *high pass* filtra, ki filtrirata le nizke ali visoke frekvence, filtrira vse frekvence, ki niso v željenem frekvenčnem razponu. V primeru tipala HC-SR04, so vse frekvence razen tistih v okolici 40kHz, za meritev nepomembne oziroma lahko tudi motnje, zato so odstranjene z *bandpass* filtrom [5].
 
 
 <img src="src/Bandpass.png" width="400px" />
@@ -66,7 +70,7 @@ Povezava tipala HC-SR04 z Arduino platformo je preprosto, saj potrebuje le 2 sig
 
 <br>
 
-<img src="src/HCsr04_shema.png">
+<img src="src/HCsr04_shema.png" width="500px">
 
 ```
 #define echoPin 3
@@ -107,20 +111,14 @@ void loop() {
 
 ## Literatura
 
-[1]
-https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf
+[1] Ultrasonic Ranging Module HC - SR04 Dostopno na: https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf
 
-[2]
-https://en.wikipedia.org/wiki/Ultrasound
+[2] Ultrasound, Wikipedia. Dostopno na: https://en.wikipedia.org/wiki/Ultrasound
 
-[3]
-https://en.wikipedia.org/wiki/Medical_ultrasound
-
-https://www.intorobotics.com/8-tutorials-to-solve-problems-and-improve-the-performance-of-hc-sr04/
-
-Podobne meritve kot moje
-[4]
-https://www.intorobotics.com/object-detection-hc-sr04-arduino-millis/
+[3] Medical ultrasound, Wikipedia. Dostopno na: https://en.wikipedia.org/wiki/Medical_ultrasound
 
 
-http://www.pcserviceselectronics.co.uk/arduino/Ultrasonic/HC-SR04-cct.pdf
+[4] (2020) How To Detect Objects with HC-SR04 Ultrasonic Sensor, Intorobotics.com. Dostopno na: https://www.intorobotics.com/object-detection-hc-sr04-arduino-millis/
+
+
+[5] (2018) Circuit Diagram Ultrasonic Distance Sensor HC-SR04. Dostopno na: http://www.pcserviceselectronics.co.uk/arduino/Ultrasonic/HC-SR04-cct.pdf
