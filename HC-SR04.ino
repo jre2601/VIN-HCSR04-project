@@ -14,18 +14,17 @@ void loop() {
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   
-  // Trigger HC-SR04 ping
+  // Sproži HC-SR04 meritev
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
   
-  // Reads the echoPin, returns the sound wave travel time in microseconds
+  // Prebere echoPin in vrne čas potovanja zvoka [µs]
   duration = pulseIn(echoPin, HIGH);
   
-  // Speed of sound at 20°C = 343 m/s
+  // Hitrost zvoka pri 20°C = 343 m/s
   distance = duration * 0.0343 / 2;
   
-  // Displays the distance on the Serial Monitor
   Serial.print("Distance: ");
   Serial.print(distance);
   Serial.println(" cm");

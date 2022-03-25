@@ -1,6 +1,8 @@
 
 <h1 align="center">VIN Poročilo - 1. DN - 2021/22</h1>
 
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
 <h2 align="center">Ultrazvočna tipala razdalje (HC-SR04)</h2>
 
 <p align="center">
@@ -10,9 +12,17 @@
 Jan Renar  
 </p>
 
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
 
 ## Grafična skica
+![](src/Poster.svg)
 
+<br><br>
 
 ## Predstavitev naprave
 
@@ -24,12 +34,20 @@ Tipalo razdaljo izmeri tako, da po oddanem ultrazvočnem signalu, meri čas dokl
 
 ![](src/Opis.jpg.svg)
 
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+
 ### Kaj je ultrazvok in kratka zgodovina
 
 Ultrazvok je definiran kot zvok, ki ima frekvenco višjo od 20kHz, kar je tudi zgornja meja človeškega sluha. Zvok takih frekvenc ima valovno dolžino 1.9cm ali manj [2].
 
 Začetek uporabe ultrazvoka v tehnološke namene sega v leto 1917, ko so uporabili prvo ultrazvočno tipalo za zaznavanje podmornic (imenovano tudi *sonar*). Z nadaljnim razvojem tehnologije, se pojavi uporaba ultrazvoka za namene testiranja materialov in njihovih šibkih točk (npr. varjene kovine) ter uporaba v medicinske namene. Odvisno od namena in materiala, so frekvence ultrazvokov različne. Za ugotavljanje razdalje po zraku, do nekega predmeta je uporabljena frekvenca okoli 40kHz. Za medicinske namene se frekvence gibajo od 1MHz do 18MHz, saj je od frekvence odvisna prodornost zvočnih valov skozi dano tkivo [3].
 
+<br><br>
 
 ## Arhitektura, tehnologije in delovanje
 
@@ -47,7 +65,7 @@ Vsa spodaj opisana integrirana vezja so iz specifičnega tipala HC-SR04 s kateri
 Integrirano vezje LM324 je sestavljeno iz 4 ločenih operacijskih ojačevalnikov, ki se na ultrazvočnem tipalu uporabljajo kot ojačevalci prejetega signala in kot filter (*Bandpass Filter* na zgornji shemi) za neželjene frekvence, katere sprejemnik zazna poleg oddane frekvence okrog 40kHz. Bandpass filter za razliko od *low pass* filtra in *high pass* filtra, ki filtrirata le nizke ali visoke frekvence, filtrira vse frekvence, ki niso v željenem frekvenčnem razponu. V primeru tipala HC-SR04, so vse frekvence razen tistih v okolici 40kHz, za meritev nepomembne oziroma lahko tudi motnje, zato so odstranjene z *bandpass* filtrom [5].
 
 
-<img src="src/Bandpass.png" width="400px" />
+<img src="src/Bandpass.png" width="350px" />
 
 *Signal bandpass filtra*
 
@@ -61,6 +79,9 @@ Iz večih spletnih virov je bilo razbrati, da je integrirano vezje RCWL-9300 mik
 Meritve so izrisane na polarnem koordinatnem sistemu, med -20° in 20°, saj je to bil največji kot na katerem se tipalo še zaznavalo objekte in razdalji do 4 metre. Barva diagrama predstavlja zanesljivost meritve tipala. V rdečem območju do 0.5 metra, je tipalo pravilno izmerilo razdaljo tudi do predmetov, ki so bili izven 15° vidnega polja, ki je omejen v podatkovni listini tipala. Na spodnji shemi lahko vidimo, da kot v kateremu tipalo izvede pravilne merite, po razdalji 1.5 metra, strmo pade pod specificiranih 15°. Vse meritve do 1.5 metra so bile ponovljive, pri višjih razdaljah pa je včasih tipalo vrnilo pravilno vrednost, včasih so bile meritve popolnoma napačne. Podobne ugotovitve oziroma priporočila glede uporabe so bila opisana v spletni literaturi [4].
 
 ![](src/Meritve_high_res.svg)
+
+<br><br>
+<br><br>
 
 ## Uporaba s kratkim opisom delovanja
 
@@ -107,7 +128,14 @@ void loop() {
 }
 ```
 
+<br><br>
+
 ## Zaključek
+
+Tipalo HC-SR04 je preprosta naprava za merjenje razdalje z uporabo ultrazvočnih valov. Zaradi relativno majhne velikosti, nizke cene in porabe, ter preprostosti uporabe, je to tipalo zelo popularno za amaterske/hobi projekte, kjer je potrebno merjenje razdalje (npr. modeli samovozečih avtomobilov). Slabost tega tipala pa je doseg in zanesljivost meritev na razdaljah daljših od enega metra, zaradi motenj. Za višje razdalje je potrebna uporaba naprednejših tipal, kot so laserski merilniki razdalje.
+
+
+<br><br>
 
 ## Literatura
 
